@@ -8,6 +8,7 @@
 <body>
       <h1>Skills</h1>
       <h2>Skill #<%= skill._id %></h2>
+      <a href="/skills/<%= skill._id %>/edit">Edit</a>
       <h3><%= skill.text %></h3>
       <h4><%= skill.dateStarted %></h4>
       <p>Mastered: <%= skill.mastery ? 'yes' : 'no'%></p>

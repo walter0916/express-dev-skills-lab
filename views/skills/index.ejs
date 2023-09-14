@@ -3,21 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <title>Document</title>
 </head>
 <body>
-  <h1>Skills List</h1>
-  <ul>
-    <% skills.forEach(skill => { %>
-    <li> 
-      <a href="/skills/<%= skill._id %>"><%= skill.text %></a>
-        - 
-        <%= skill.dateStarted %>
-        - 
-        <%= skill.mastery ? 'Mastered' : 'not Mastered' %>
-      <% }) %>
-    </li>
-  </ul>
-  <a href="/skills/new">Add skill </a>
+  <div class="notepad">
+  <div class="top"></div>
+  <div class="paper">
+    <h1>Skills List as of <%= time %></h1>
+    <ul>
+      <% skills.forEach(skill => { %>
+      <li> 
+        <form 
+        action="/skills/<%= skill._id %>?_method=DELETE"
+        class="delete-form"
+        method="POST"
+        >
+          <button type="submit">X</button>
+        </form>
+        <a href="/skills/<%= skill._id %>"><%= skill.text %></a>
+          - 
+          <%= skill.dateStarted %>
+          - 
+          <%= skill.mastery ? 'Mastered' : 'not Mastered' %>
+        <% }) %>
+      </li>
+    </ul>
+    <a href="/skills/new">Add skill </a>
+
+  </div>
+  </div>
 </body>
 </html>

@@ -4,7 +4,8 @@ function index(req, res) {
   Skill.find({})
   .then (skills => {
     res.render('skills/index', {
-      skills: skills
+      skills: skills,
+      time: req.time
     })
   })
   .catch(error => {
@@ -40,9 +41,49 @@ function show(req, res) {
     res.redirect('/')
     })
 }
+
+function deleteSkill(req, res){
+  Skill.findByIdAndDelete(req.params.skillId)
+  .then(skill => {
+    res.redirect('/skills')
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/skills')
+  })
+}
+
+function edit(req, res){
+  Skill.findById(req.params.skillId)
+  .then(skill => {
+    res.render('skills/edit', {
+      skill: skill
+    })
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/skills')
+  })
+}
+
+function update(req, res){
+  req.body.mastery = !!req.body.mastery
+  Skill.findByIdAndUpdate(req.params.skillId, req.body, {new: true})
+  .then(skill => {
+    res.redirect(`/skills/${skill._id}`)
+  })
+  .catch(error => {
+    console.log(error)
+    res.redirect('/skills')
+  })
+}
+
 export {
   index,
   newSkill as new,
   create,
-  show
+  show,
+  deleteSkill as delete, 
+  edit,
+  update
 }
