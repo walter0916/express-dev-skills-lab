@@ -4,10 +4,11 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import createError from 'http-errors'
 import logger from 'morgan'
+import methodOverride from 'method-override'
 
 // import routers
 import { router as indexRouter } from './routes/index.js'
-import { router as usersRouter } from './routes/users.js'
+import { router as skillsRouter } from './routes/skills.js'
 
 // create the express app
 const app = express()
@@ -24,10 +25,11 @@ app.use(
     path.join(path.dirname(fileURLToPath(import.meta.url)), 'public')
   )
 )
+app.use(methodOverride('_method'))
 
 // mount imported routes
 app.use('/', indexRouter)
-app.use('/users', usersRouter)
+app.use('/skills', skillsRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
